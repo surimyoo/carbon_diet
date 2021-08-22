@@ -1,0 +1,24 @@
+#header { border-bottom: 0px; }
+
+.recipe-img { width: 100%; position: relative; }
+.recipe-img img { width: 100%; }
+
+.recipe-carbon-info { width: 100%; position: relative; display: inline-block; margin-bottom: 10px;}
+.recipe-carbon-info .recipe-name { float: left; width: 100%; }
+.recipe-carbon-info .carbon-info-box { float: left; width: 100%; text-align: center; }
+.recipe-carbon-info .carbon-info-box .carbon-icon { height: 30px; display: inline; }
+.recipe-carbon-info .carbon-info-box .carbon-icon img { height: 30px; }
+.recipe-carbon-info .carbon-info-box .carbon-info {}
+.recipe-carbon-info .carbon-info-box .carbon-info span { margin-left: 5px; }
+
+.recipe-ingredients { margin: 0 15px; border-top: 1px solid #000; padding-top: 20px; }
+.recipe-ingredients .recipe-sub-title { font-size: 24px; text-align: left; }
+.recipe-ingredients .recipe-sub-title .sub-text { margin-left: 5px; font-size:16px; color: #bebebe; }
+.recipe-ingredients .recipe-box { width: 100%; padding: 30px; box-sizing: border-box; background: #effad8; border-radius: 15px; margin: 5px 0; }
+
+.recipe-steps { margin: 20px 15px; }
+.recipe-steps .recipe-sub-title { font-size: 24px; text-align: left; }
+.recipe-steps .recipe-sub-title .sub-text{ margin-left: 5px; font-size:16px; color: #bebebe;}
+.recipe-steps .recipe-box { width: 100%; padding: 30px; box-sizing: border-box; background: #effad8; border-radius: 15px; margin: 5px 0; }
+.recipe-steps .recipe-box ul { list-style-type: none; padding: 0; margin: 0; }
+.recipe-steps .recipe-box ul li { margin-bottom: 10px; }

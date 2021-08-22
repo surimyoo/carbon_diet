@@ -1,0 +1,9 @@
+.profile-list { list-style-type: none; margin: 0; padding: 10px 15px; }
+.profile-list .profile-item { border-bottom: 1px solid #e5e5e5; padding: 15px 0; box-sizing: border-box; display: inline-block; width: 100%; }
+.profile-list .profile-item .profile-label { color: #837E7E; text-align:left; width: 100%; float: left; padding-left: 0px; }
+.profile-list .profile-item .profile-box { width: 100%; float: left; }
+.profile-list .profile-item .profile-box .gender-box { width: calc(100% - 60px); min-width: calc(100% - 60px); float: left; height: 35px; text-align: left; }
+.profile-list .profile-item .profile-box input { width: calc(100% - 60px); min-width: calc(100% - 60px); }
+.profile-list .profile-item .profile-box .btn-radio { height: 35px; margin: 0; line-height: 35px; padding: 0; text-align: center; }
+.profile-list .profile-item .profile-box .btn-radio .profile-gender { width: 0px; min-width: 0px; }
+.profile-list .profile-item .profile-box .btn-radio .btn-radio.active { background: #77933c; color: #fff; }

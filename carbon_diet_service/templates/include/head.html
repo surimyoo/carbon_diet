@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <link href="/static/css/reset.css" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="/static/css/common.css" rel="stylesheet" >
+		{% if css_name %}<link href="/static/css/{{ css_name }}.css" rel="stylesheet" >{% endif %}
+        
+        <script src="/static/js/jquery-1.12.4.min.js"></script>
+        <script src="/static/js/common.js"></script>
+		{% if js_name %}<script src="/static/js/{{ js_name }}.js"></script>{% endif %}
+    </head>
+	<body>

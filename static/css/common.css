@@ -1,0 +1,36 @@
+#contents { width: 100%; display: inline-block; float: left;}
+#contents .contents-box { width: 100%; display: inline-block; text-align: center; float: left; }
+
+.txt-bold { font-weight: bold; }
+.txt-underline { text-decoration: underline; }
+
+.img { width: 100%; object-fit: contain;}
+
+.form-input { min-width: 80%; width: 80%; height: 35px; box-sizing: border-box; margin: 15px 0; padding: 25px; background: #F4F5F7; border: 0;}
+.form-input::placeholder { color: #C4C4C4; }
+.form-input.form-input-transparent { background: #fff; color: 000; font-size: 24px; font-weight: bold; padding: 0; margin: 0px; }
+
+.btn-default { padding: 20px 65px; background: #77933C; color: #fff; display: inline-block; border-radius: 45px; }
+.btn-small { border: 1px solid #333; padding: 5px 10px; border-radius: 10px; margin: 1px 0; position: relative; display: inline-block; }
+.btn-radio { width: 40%; box-sizing: border-box; background: #F4F5F7; display: inline-block; height: 50px; padding: 13px; margin: 15px 0; color:#c4c4c4;}
+.btn-radio.active { background: #77933c; color: #fff; }
+.btn-radio input[type=radio] { width: 0; }
+
+.mt-20 { margin-top: 20px; }
+.mb-50 { margin-bottom: 50px; }
+
+/* 헤더 */
+#header { height: 55px; display: block; text-align: center; box-sizing: border-box; border-bottom: 1px solid #000; margin: 0 15px; }
+#header .btn-menu { float: left; padding: 17px; position: absolute; top: 0; left: 0; }
+#header .btn-prev { float: left; padding: 17px; position: absolute; top: 0; left: 0; }
+#header .logo-img { position: relative; height: 55px; display: inline-block; line-height: 54px; font-size: 30px; font-weight: bold; }
+#header .logo-img img { height: 55px; }
+
+/* 사이드메뉴 */
+#side-menu { position: fixed; left: -100%; top: 0; width: 100%; height: 100%; background: #77933C; color: #fff; transition: 0.5s; }
+#side-menu.active { left: 0%; }
+#side-menu .close-menu { padding: 10px; position: relative; display: inline-block; }
+#side-menu .menu-list { margin-top: 40px; list-style-type: none; }
+#side-menu .menu-list .menu-item { margin: 10px 0; line-height: 30px; }
+#side-menu .menu-list .menu-item .menu-icon { margin-right: 10px; width: 30px; display: inline; }
+#side-menu .menu-list .menu-item .menu-icon img { width:30px; }

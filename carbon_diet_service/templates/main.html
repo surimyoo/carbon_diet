@@ -1,0 +1,47 @@
+{% include "include/head.html" %}
+<div id="contents">
+    {% include "include/header.html" %}
+	<div class="contents-box">
+        <div class="calendar-bar">
+            <ul class="calendar-list">
+                {% for k,date in week.items %}
+                <li class="calendar-item{% if today.day == date.days %} active{% endif %}" data-day="{{date.ymd}}"><div><label>{{date.week}}</label><span>{{date.days}}</span></div></li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="recipe-box">
+            {% csrf_token %}
+            <div class="recipe-top"><h2>{{today.month}}월 {{today.day}}일 {{today_week}}요일</h2></div>
+            <ul class="recipe-list">
+                {% for mp in mealplan %}
+                <li class="recipe-item">
+                    <p class="recipe-type">{% if mp.PLAN_TYPE == 0 %}아침식사{% elif mp.PLAN_TYPE == 1 %}점심식사{% else %}저녁식사{% endif %}</p>
+                    <div class="recipe-info-box">
+                        <div class="recipe-img" data-seq="{{ mp.RCP_SEQ }}"><img src="{{ mp.ATT_FILE_NO_MAIN }}"></div>
+                        <div class="recipe-info">
+                            <div class="recipe-name">{{ mp.RCP_NM }}</div>
+                            <div class="recipe-detail">
+                                <label class="recipe-carbon-txt">탄소</label>
+                                <label class="recipe-carbon">{{ mp.INFO_EMISSIONS }}</label>g
+                            </div>
+                            {% if mp.IS_VEGE == 1 %}
+                            <div class="vege-sticker">
+                                <img src="/static/images/icon_footprints.png">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="recipe-plan">
+                            <div class="plan-check {% if mp.IS_ACTION == 1 %}active{% endif %}" data-seq="{{ mp.PLAN_SEQ }}">
+                                <input type="checkbox" class="is-action" value="1" {% if mp.IS_ACTION == 1 %}checked{% endif %}>
+                                <span class="check-round"></span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+	</div>
+</div>
+{% include "include/footer.html" %}

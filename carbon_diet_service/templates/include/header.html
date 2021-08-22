@@ -1,0 +1,24 @@
+<header id="header">
+    {% if title %}
+    <div class="logo-img">
+        {{title}}
+    </div>
+    <div class="btn-prev"><img src="/static/images/icon_prev.png"></div>
+    {% else %}
+    <div class="logo-img">
+        <img class="img logo-text" src="/static/images/logo_name.png">
+    </div>
+    <div class="btn-menu"><img src="/static/images/icon_menu.png"></div>
+    {% endif %}
+</header>
+{% if title == None %}
+<div id="side-menu">
+    <span class="close-menu"><img src="/static/images/icon-x.png"></span>
+    <ul class="menu-list">
+        <li class="menu-item menu-profile"><span class="menu-icon"><img src="/static/images/icon_person_circle.png"></span>Profile</li>
+        <li class="menu-item menu-insight"><img src="/static/images/icon_sharp_query_stats.png"><span class="menu-icon"></span>Insight</li>
+        <li class="menu-item menu-settings"><img src="/static/images/icon_setting.png"><span class="menu-icon"></span>Settings</li>
+        <li class="menu-item menu-logout"><span class="menu-icon"><img src="/static/images/icon-logout.png"></span>Logout</li>
+    </ul>
+</div>
+{% endif %}

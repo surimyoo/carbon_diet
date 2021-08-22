@@ -1,0 +1,34 @@
+.logo-box { 
+	display: inline-block; 
+	padding: 60px 0 30px; 
+	box-sizing: border-box; 
+	text-align: center; 
+	float: left; 
+	width: 100%; 
+    position: relative;
+}
+.logo-box .logo-text { 
+	max-height: 95px; 
+}
+.logo-box .logo-img { 
+	width: 40%; 
+	max-height: 85px; 
+}
+
+.btn-login {
+	
+}
+.btn-join {
+	
+}
+.bottom-box { 
+	bottom: 0; 
+	position: relative; 
+	width: 100%; 
+	height: 55px; 
+	text-align: center; 
+	background: #C4C4C4; 
+	box-sizing: border-box; 
+	line-height: 55px;
+    float: left;
+}

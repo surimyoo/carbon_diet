@@ -1,0 +1,6 @@
+.setting-list { list-style-type: none; margin: 0; padding: 10px 15px; }
+.setting-list .setting-item { border-bottom: 1px solid #e5e5e5; padding: 15px 0; box-sizing: border-box; display: inline-block; width: 100%; }
+.setting-list .setting-item .setting-label { color: #837E7E; text-align:left; width: 100%; float: left; padding-left: 0px; }
+.setting-list .setting-item .setting-box { width: 100%; float: left; }
+.setting-list .setting-item .setting-box .gender-box { width: calc(100% - 60px); min-width: calc(100% - 60px); float: left; height: 35px; text-align: left; }
+.setting-list .setting-item .setting-box input { width: calc(100% - 60px); min-width: calc(100% - 60px); }

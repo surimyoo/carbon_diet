@@ -1,0 +1,24 @@
+/* 달력 바 */
+.calendar-bar { height: 94px; }
+.calendar-bar .calendar-list { width: 100%; list-style-type: none; padding: 0; display: inline-block; }
+.calendar-bar .calendar-list .calendar-item { width: 12%; display: inline-block; text-align: center; }
+.calendar-bar .calendar-list .calendar-item div { background: #E5E5E5; border-radius: 100px; padding: 10px 5px 5px; box-sizing: border-box; max-width: 43px; }
+.calendar-bar .calendar-list .calendar-item div label { width: 100%; display: block; margin-bottom: 5px; color: #fff;}
+.calendar-bar .calendar-list .calendar-item div span { width: 100%; display: block; background: #fff; border-radius: 50%; padding: 6px; box-sizing: border-box; color: #E5E5E5;}
+.calendar-bar .calendar-list .calendar-item.active {}
+.calendar-bar .calendar-list .calendar-item.active div { background: #77933C; }
+.calendar-bar .calendar-list .calendar-item.active div span { color: #000; }
+
+/* 식단 리스트 */
+.recipe-box .recipe-top { text-align: left; margin-left: 15px; }
+.recipe-box .recipe-list { list-style-type: none; padding: 15px; }
+.recipe-box .recipe-list .recipe-item .recipe-type { color: #837E7E; text-align: left; margin: 5px 0; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box {     width: 100%; height: 120px; display: inline-block; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-img { width: 100px; height: 100px; background: #ddd; float: left; border-radius: 15px; box-sizing: border-box; margin: 10px 0; display: flex; overflow: hidden; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-info .vege-sticker { float:left; width: 46px; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-info { width: calc(100% - 130px); float: left; padding: 10px; box-sizing: border-box;  text-align: left; line-height: 25px; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-plan { float: right; width: 30px; display: inline-block; text-align: center; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-plan .plan-check { display: block; margin-top: 49px; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-plan .plan-check input[type=checkbox] { width: 0; }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-plan .plan-check .check-round { width: 22px; height: 22px; display: inline-block; background: url('/static/images/icon_non_checked.png'); }
+.recipe-box .recipe-list .recipe-item .recipe-info-box .recipe-plan .plan-check.active .check-round { background: url('/static/images/icon_checked.png'); }

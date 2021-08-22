@@ -1,0 +1,46 @@
+{% include "include/head.html" %}
+<div id="contents">
+    <div class="top-bar">
+        <div class="btn-prev"><img src="/static/images/icon_prev.png"></div>
+        <div class="header-text">
+            Login
+        </div>
+    </div>
+	<div class="logo-box">
+		<p>
+			<img class="img logo-text" src="/static/images/logo_name.png">
+		</p>
+		<p>
+			<img class="img logo-img" src="/static/images/logo_img.png">
+		</p>
+	</div>
+	<div class="contents-box">
+		<form method="post" id="joinForm">
+			{% csrf_token %}
+			<p>
+				<input type="text" class="form-input" name="name" placeholder="성명을 입력해주세요">
+			</p>
+			<p>
+				<input type="email" class="form-input" name="email" placeholder="이메일을 입력해주세요">
+			</p>
+			<p>
+				<input type="password" class="form-input" name="password" placeholder="비밀번호를 입력해주세요">
+			</p>
+			<p>
+				<input type="text" class="form-input" name="nick" placeholder="사용하실 닉네임을 입력해주세요">
+			</p>
+			<p>
+				<input type="date" class="form-input" name="birthday" placeholder="생년월일을 입력해주세요">
+			</p>
+			<p>
+				<label class="btn-radio"><input type="radio" name="gender" value="M"> 남자 </label>
+				<label class="btn-radio"><input type="radio" name="gender" value="F"> 여자 </label>
+			</p>
+			<p>
+				<input type="tel" class="form-input" name="contact" placeholder="연락처를 입력해주세요 ex.01012345678" maxlength="13">
+			</p>
+			<div class="mt-20 btn-default btn-join">Join us!</div>
+		</form>
+	</div>
+</div>
+{% include "include/footer.html" %}

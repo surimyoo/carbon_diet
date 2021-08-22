@@ -1,0 +1,62 @@
+{% include "include/head.html" %}
+<div id="contents">
+    {% include "include/header.html" %}
+	<div class="contents-box">
+		{% csrf_token %}
+        <ul class="profile-list">
+            <li class="profile-item">
+                <p class="profile-label">이메일 아이디</p>
+                <div class="profile-box">
+                    <input type="text" class="form-input form-input-transparent profile-email" value="{{user.MEM_EMAIL}}">
+                    <span class="btn-small btn-modify" data-type="email">변경</span>
+                </div>
+            </li>
+            <li class="profile-item">
+                <p class="profile-label">이름</p>
+                <div class="profile-box">
+                    <input type="text" class="form-input form-input-transparent profile-name" value="{{user.MEM_NM}}">
+                    <span class="btn-small btn-modify" data-type="name">변경</span>
+                </div>
+            </li>
+            <li class="profile-item">
+                <p class="profile-label">비밀번호</p>
+                <div class="profile-box">
+                    <input type="password" class="form-input form-input-transparent profile-password" value="">
+                    <span class="btn-small btn-modify" data-type="password">변경</span>
+                </div>
+            </li>
+            <li class="profile-item">
+                <p class="profile-label">별명</p>
+                <div class="profile-box">
+                    <input type="text" class="form-input form-input-transparent profile-nick" value="{{user.MEM_NNM}}">
+                    <span class="btn-small btn-modify" data-type="nick">변경</span>
+                </div>
+            </li>
+            <li class="profile-item">
+                <p class="profile-label">생년월일</p>
+                <div class="profile-box">
+                    <input type="date" class="form-input form-input-transparent profile-birthday" value="{{user.MEM_BD|date:'Y-m-d'}}">
+                    <span class="btn-small btn-modify" data-type="birthday">변경</span>
+                </div>
+            </li>
+            <li class="profile-item">
+                <p class="profile-label">성별</p>
+                <div class="profile-box">
+					<div class="gender-box">
+						<label class="btn-radio{% if user.MEM_GENDER == 'M' %} active{% endif %}"><input type="radio" name="gender" class="profile-gender" value="M" {% if user.GENDER == 'M' %}checked{% endif %}> 남자 </label>
+						<label class="btn-radio{% if user.MEM_GENDER == 'F' %} active{% endif %}"><input type="radio" name="gender" class="profile-gender" value="F" {% if user.GENDER == 'F' %}checked{% endif %}> 여자 </label>
+					</div>
+                    <span class="btn-small btn-modify" data-type="gender">변경</span>
+                </div>
+            </li>
+            <li class="profile-item">
+                <p class="profile-label">연락처</p>
+                <div class="profile-box">
+                    <input type="tel" class="form-input form-input-transparent profile-contact" value="{{user.MEM_CONTACT}}" maxlength="13">
+                    <span class="btn-small btn-modify" data-type="contact">변경</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% include "include/footer.html" %}

@@ -1,0 +1,72 @@
+{% include "include/head.html" %}
+<div id="contents">
+    {% include "include/header.html" %}
+	<div class="contents-box">
+        {% if recipe.ATT_FILE_NO_MK %}
+        <div class="recipe-img">
+            <img src="{{ recipe.ATT_FILE_NO_MK }}">
+        </div>
+        {% endif %}
+        <div class="recipe-carbon-info">
+            <div class="recipe-name">
+                <h2>{{ recipe.RCP_NM }}</h2>
+            </div>
+            <div class="carbon-info-box">
+                <p class="carbon-icon">
+                    <img src="/static/images/carbon.png">
+                </p>
+                <div class="carbon-info">
+                    탄소<span>{{ recipe.INFO_EMISSIONS }}</span>g
+                </div>
+            </div>
+        </div>
+        <div class="recipe-ingredients">
+            <div class="recipe-sub-title">
+                재료<span class="sub-text">ingredients</span>
+            </div>
+            <div class="recipe-box">
+                {{ recipe.RCP_PARTS_DTLS }}
+            </div>
+        </div>
+        <div class="recipe-steps">
+            <div class="recipe-sub-title">
+                조리순서<span class="sub-text">steps</span>
+            </div>
+            <div class="recipe-box">
+                <ul>
+                    {% if recipe.MANUAL01 is not None %}
+                    <li>{{ recipe.MANUAL01 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL02 is not None %}
+                    <li>{{ recipe.MANUAL02 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL03 is not None %}
+                    <li>{{ recipe.MANUAL03 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL04 is not None %}
+                    <li>{{ recipe.MANUAL04 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL05 is not None %}
+                    <li>{{ recipe.MANUAL05 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL06 is not None %}
+                    <li>{{ recipe.MANUAL06 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL07 is not None %}
+                    <li>{{ recipe.MANUAL07 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL08 is not None %}
+                    <li>{{ recipe.MANUAL08 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL09 is not None %}
+                    <li>{{ recipe.MANUAL09 }}</li>
+                    {% endif %}
+                    {% if recipe.MANUAL10 is not None %}
+                    <li>{{ recipe.MANUAL10 }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "include/footer.html" %}

@@ -1,0 +1,73 @@
+{% include "include/head.html" %}
+<div id="contents">
+    {% include "include/header.html" %}
+	<div class="contents-box">
+		{% csrf_token %}
+        <ul class="setting-list">
+            <li class="setting-item">
+                <p class="setting-label">키</p>
+                <div class="setting-box">
+                    <input type="text" class="form-input form-input-transparent setting-height" value="{{user.MEM_HEIGHT}}">
+                    <span class="btn-small btn-modify" data-type="height">변경</span>
+                </div>
+            </li>
+            <li class="setting-item">
+                <p class="setting-label">몸무게</p>
+                <div class="setting-box">
+                    <input type="text" class="form-input form-input-transparent setting-weight" value="{{user.MEM_WEIGHT}}">
+                    <span class="btn-small btn-modify" data-type="weight">변경</span>
+                </div>
+            </li>
+            <li class="setting-item">
+                <p class="setting-label">활동 수준</p>
+                <div class="setting-box">
+                    <select class="form-input form-input-transparent setting-activity">
+                        <option value="1" {% if user.MEM_ACTIVITY == 1 %}selected{% endif %}>비활동적</option>
+                        <option value="2" {% if user.MEM_ACTIVITY == 2 %}selected{% endif %}>저활동적</option>
+                        <option value="3" {% if user.MEM_ACTIVITY == 3 %}selected{% endif %}>활동적</option>
+                        <option value="4" {% if user.MEM_ACTIVITY == 4 %}selected{% endif %}>매우 활동적</option>
+                    </select>
+                    <span class="btn-small btn-modify" data-type="activity">변경</span>
+                </div>
+            </li>
+            <li class="setting-item">
+                <p class="setting-label">채식 수준</p>
+                <div class="setting-box">
+                    <select class="form-input form-input-transparent setting-vegeclass">
+                        {% for vc in vegeclass %}
+                        <option value="{{vc.VEGE_CLASS_SEQ}}" {% if user.VEGE_CLASS_SEQ == vc.VEGE_CLASS_SEQ %}selected{% endif %}>{{vc.VEGE_CLASS_CATEGORY}}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="btn-small btn-modify" data-type="vegeclass">변경</span>
+                </div>
+            </li>
+            <li class="setting-item">
+                <p class="setting-label">채식 하루 빈도</p>
+                <div class="setting-box">
+                    <select class="form-input form-input-transparent setting-vegedaily">
+                        <option value="1" {% if user.VEGE_DAILY == 1 %}selected{% endif %}>하루 1회</option>
+                        <option value="2" {% if user.VEGE_DAILY == 2 %}selected{% endif %}>하루 2회</option>
+                        <option value="3" {% if user.VEGE_DAILY == 3 %}selected{% endif %}>하루 3회</option>
+                    </select>
+                    <span class="btn-small btn-modify" data-type="vegedaily">변경</span>
+                </div>
+            </li>
+            <li class="setting-item">
+                <p class="setting-label">채식 주간 빈도</p>
+                <div class="setting-box">
+                    <select class="form-input form-input-transparent setting-vegeweekly">
+                        <option value="1" {% if user.VEGE_WEEKLY == 1 %}selected{% endif %}>주 1회</option>
+                        <option value="2" {% if user.VEGE_WEEKLY == 2 %}selected{% endif %}>주 2회</option>
+                        <option value="3" {% if user.VEGE_WEEKLY == 3 %}selected{% endif %}>주 3회</option>
+                        <option value="4" {% if user.VEGE_WEEKLY == 4 %}selected{% endif %}>주 4회</option>
+                        <option value="5" {% if user.VEGE_WEEKLY == 5 %}selected{% endif %}>주 5회</option>
+                        <option value="6" {% if user.VEGE_WEEKLY == 6 %}selected{% endif %}>주 6회</option>
+                        <option value="7" {% if user.VEGE_WEEKLY == 7 %}selected{% endif %}>주 7회</option>
+                    </select>
+                    <span class="btn-small btn-modify" data-type="vegeweekly">변경</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% include "include/footer.html" %}

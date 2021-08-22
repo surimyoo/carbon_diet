@@ -1,0 +1,27 @@
+{% include "include/head.html" %}
+<div id="contents">
+	<div class="logo-box">
+		<p>
+			<img class="img logo-text" src="/static/images/logo_name.png">
+		</p>
+		<p>
+			<img class="img logo-img" src="/static/images/logo_img.png">
+		</p>
+	</div>
+	<div class="contents-box">
+		<form id="loginForm" action="/login" method="POST">
+			{% csrf_token %}
+			<p>
+				<input type="text" class="form-input" name="email" placeholder="이메일을 입력해주세요">
+			</p>
+			<p>
+				<input type="password" class="form-input" name="password" placeholder="비밀번호를 입력해주세요">
+			</p>
+			<div class="mt-20 btn-default btn-login">Login</div>
+		</form>
+	</div>
+</div>
+<div class="bottom-box btn-join">
+    <p class="txt-bold">계정이 없으신가요? <label class="txt-underline">회원가입</label></p>
+</div>
+{% include "include/footer.html" %}
