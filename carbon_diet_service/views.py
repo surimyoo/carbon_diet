@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
@@ -181,7 +180,7 @@ def insight(request):
         'title' : 'Insight',
     }
     return render(request, 'insight.html', view_data)
-height= [x for x in range(140,200)]
+
 def question(request):
     if login_session_check(request) == False :
         return redirect('/login')
@@ -189,7 +188,19 @@ def question(request):
         val = request.POST['value']
         if request.POST['type'] == 'height':
             col = 'MEM_HEIGHT'
-    param = {
+        elif request.POST['type'] == 'weight':
+            col = 'MEM_WEIGHT'
+        elif request.POST['type'] == 'activity':
+            col = 'MEM_ACTIVITY'
+        elif request.POST['type'] == 'vegeclass':
+            col = 'VEGE_CLASS_SEQ'
+        elif request.POST['type'] == 'vegedaily':
+            col = 'VEGE_DAILY'
+        elif request.POST['type'] == 'vegeweekly':
+            col = 'VEGE_WEEKLY'
+            
+
+        param = {
             'type' : col,
             'val' : val,
             'seq' : request.session['member_index'],
@@ -198,8 +209,6 @@ def question(request):
         result = module.dbmodule.setting_update(param)
         return HttpResponse(json.dumps({ 'result' : result, 'msg' : '' }))
         
-    'MEN_HEIGHT'=height 
-    col = 'MEM_HEIGHT'
     else:
         view_data = {
             'js_name' : 'question',
@@ -248,8 +257,3 @@ def test(request):
     #    module.dbmodule.recipe_emissions(i,module.pymodule.parts_calc_carbon(i))
     #return HttpResponse(json.dumps({ 'result' : 'ok', 'msg' : '' }, ensure_ascii=False))
     return HttpResponse(json.dumps({ 'result' : module.pymodule.parts_calc_carbon(request.GET['seq']), 'msg' : '' }, ensure_ascii=False))
-=======
-from django.shortcuts import render
-
-# Create your views here.
->>>>>>> 3128f53d2a75ea65a7c373844860465fa416ea76

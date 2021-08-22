@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-<<<<<<< HEAD
+
 from . import views
 
 urlpatterns = [
@@ -37,8 +37,4 @@ urlpatterns = [
     # 실천여부변경
     path('planaction', views.planaction),
     path('test', views.test),
-=======
-
-urlpatterns = [
->>>>>>> 3128f53d2a75ea65a7c373844860465fa416ea76
 ]
