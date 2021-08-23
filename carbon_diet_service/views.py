@@ -86,6 +86,7 @@ def login(request):
 
 def logout(request):
     del request.session['member_index']
+    del request.session['is_setting']
     return redirect('/login')
 
 def join(request):
@@ -195,10 +196,20 @@ def insight(request):
         return redirect('/login')
     if setting_session_check(request) == False :
         return redirect('/question')
+
+    # 오늘 식단 발자국
+    # 전체 식단 발자국
+    # 오늘 식사 온실가스
+
+    # 전체평균 온실가스
+
     view_data = {
         'js_name' : 'insight',
         'css_name' : 'insight',
-        'title' : 'Insight',
+        'title' : 'Carbon_Diet',
+        'user' : module.dbmodule.get_member(request.session['member_index']),
+        # 기여도
+        'carbon_contribution' : 2000,
     }
     return render(request, 'insight.html', view_data)
 

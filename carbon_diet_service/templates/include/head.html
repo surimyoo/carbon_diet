@@ -6,6 +6,15 @@
 		{% if css_name %}<link href="/static/css/{{ css_name }}.css" rel="stylesheet" >{% endif %}
         
         <script src="/static/js/jquery-1.12.4.min.js"></script>
+        {% if js_name == 'insight' %}
+        <script>
+        var carbon_contribution = {{ carbon_contribution }};
+        </script>
+        <script type="text/javascript" src="/static/plugins/jqplot/jquery.jqplot.min.js"></script>
+        <script type="text/javascript" src="/static/plugins/jqplot/jqplot.canvasTextRenderer.js"></script>
+        <script type="text/javascript" src="/static/plugins/jqplot/jqplot.canvasAxisLabelRenderer.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/plugins/jqplot/jquery.jqplot.min.css" />
+        {% endif %}
         <script src="/static/js/common.js"></script>
 		{% if js_name %}<script src="/static/js/{{ js_name }}.js"></script>{% endif %}
     </head>

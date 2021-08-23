@@ -3,13 +3,20 @@
 
 .txt-bold { font-weight: bold; }
 .txt-underline { text-decoration: underline; }
+.txt-pink { color:#E19EC6; }
+.txt-pink.txt-box { color:#fff; background: #E19EC6; padding: 0px 5px; }
+.txt-blue { color: #9EB9E1; }
+.txt-blue .txt-box { color: #fff; background: #9EB9E1; padding: 0px 5px; }
+.txt-green { color: #64BD3A; }
+.txt-green .txt-box { color: #fff; background: #64BD3A; padding: 0px 5px; }
+.txt-green .txt-round { color: #fff; background: #64BD3A; padding: 0px 10px; border-radius: 15px; margin-right: 20px; }
 
-.img { width: 100%; object-fit: contain;}
+.img { width: 100%; object-fit: contain; }
 
 .form-input { min-width: 80%; width: 80%; height: 35px; box-sizing: border-box; margin: 15px 0; padding: 25px; background: #F4F5F7; border: 0;}
 .form-input::placeholder { color: #C4C4C4; }
 .form-input.form-input-default { font-size: 24px; }
-.form-input.form-input-transparent { background: #fff; color: 000; font-size: 24px; font-weight: bold; padding: 0; margin: 0px; }
+.form-input.form-input-transparent { background: #fff; color: 000; font-size: 24px; font-weight: bold; padding: 0; margin: 0px; width: calc(100% - 60px); min-width: calc(100% - 60px);}
 
 .btn-default { padding: 20px 65px; background: #77933C; color: #fff; display: inline-block; border-radius: 45px; }
 .btn-small { border: 1px solid #333; padding: 5px 10px; border-radius: 10px; margin: 1px 0; position: relative; display: inline-block; }
