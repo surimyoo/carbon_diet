@@ -1,3 +1,4 @@
+/*
 .top-bar { width:100%; float: left; padding: 5px; box-sizing:border-box; }
 .top-bar .btn-prev { float: left; }
 .top-bar .header-text { float: left; }
@@ -5,29 +6,121 @@
 .logo-box .logo-text { max-height: 70px; }
 .logo-box .logo-img { max-height: 60px; margin: 0 0 20;}
 
-.question-list{list-style:none}
-.question-label1 { width: 351px; left: 17px; top: 75px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 20px  }
-.question-label2 {  width: 351px; left: 18px; top: 230px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 20px  }
-.question-label3 {  width: 400px; left: 18px; top: 397px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 20px  }
-.question-label4 {  width: 400px; left: 18px; top: 397px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 20px  }
-.question-label4-1 {  width: 400px; left: 18px; top: 397px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 10px  }
-.question-label5 {  width: 500px; left: 18px; top: 397px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 20px  }
-.question-label6 {  width: 450px; left: 18px; top: 397px;
-border-radius: nullpx; font-style: normal; font-weight: normal; font-size: 20px  }
+.question-list{list-style:none; padding:15px; margin: 0;}
+.question-label1 { text-align:left; width: 100%; float: left; padding-left: 0px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 20px  }
+.question-label2 {  text-align:left; width: 90%; float: left; padding-left: 0px; left: 18px; top: 230px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 20px  }
+.question-label3 {  text-align:left; width: 90%; float: left; padding-left: 0px; left: 18px; top: 397px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 20px  }
+.question-label4 {text-align:left; width: 90%; float: left; padding-left: 0px; left: 18px; top: 397px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 20px  }
+.question-label4-1 {  text-align:left; width: 90%; float: left; padding-left: 0px; left: 18px; top: 397px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 10px  }
+.question-label5 {  text-align:left; width: 90%; float: left; padding-left: 0px; left: 18px; top: 397px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 20px  }
+.question-label6 {  text-align:left; width: 90%; float: left; padding-left: 0px; left: 18px; top: 397px;
+border-radius: nullpx; font-style: normal; font-weight: bold; font-size: 20px  }
+*/
 
-
+.question-list { list-style-type: none; margin: 0; padding: 10px 15px; }
+.question-list .question-item { padding: 15px 0; box-sizing: border-box; display: inline-block; width: 100%; }
+.question-list .question-item .question-label { color: #000; font-weight: bold; font-size:20px; text-align:left; width: 100%; float: left; padding-left: 0px; }
+.question-list .question-item .question-sub-label { color: #000; font-size:12px; text-align:left; width: 100%; float: left; padding-left: 0px; }
+.question-list .question-item .question-box { width: 100%; float: left; }
+.question-list .question-item .question-box input { font-size:18px; width: 100%; min-width: 100%; padding:10px; height:auto; }
+.question-list .question-item .question-box select { font-size:18px; width: 100%; min-width: 100%; padding:10px; height:auto; }
+.question-list .question-item .question-box .vegeclass-radio { width:16.6%; float:left; }
+.question-list .question-item .question-box .vegeclass-radio input { width:0px; height:0px;  }
 .form-input {padding:0px}
-.form-input-transparent1 {Top: 115; left:15px; background:#77933C59; width: 90%; float: left; margin:10 0 25;}
-.form-input-transparent2 {Top: 500; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 25;}
-.form-input-transparent3 {Top: 800; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 25;}
-.form-input-transparent5 {Top: 800; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 25;}
-.form-input-transparent6 {Top: 800; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 25;}
 
-.btn-default {margin: 50 150;}
+/*
+.form-input-transparent1 {Top: 115; left:15px; background:#77933C59; width: 90%; float: left; margin:10 0 50;}
+.form-input-transparent2 {Top: 500; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 50;}
+.form-input-transparent3 {Top: 800; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 50;}
+.form-input-transparent5 {Top: 800; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 50;}
+.form-input-transparent6 {Top: 800; left:16px; background:#77933C59; width: 90%; float: left; margin:10 0 50;}
 
+
+.btn-default {margin: 50 80;}
+*/
+/*
+.progressbar {
+      margin: 50px 0 50px 0;
+      counter-reset: step;
+  }
+  .progressbar li {
+      list-style-type: none;
+      width: 13%;
+      float: left;
+      font-size: 12px;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      color: #7d7d7d;
+	  margin: 40 0 30;
+  }
+  .progressbar li:before {
+      width: 15px;
+      height: 15px;
+      content: '';
+      line-height: 30px;
+      border: 2px solid #7d7d7d;
+      background-color: #7d7d7d;
+      display: block;
+      text-align: center;
+      margin: 0 auto 10px auto;
+      border-radius: 50%;
+      transition: all .8s;
+  }
+  .progressbar li:after {
+      width: 100%;
+      height: 2px;
+      content: '';
+      position: absolute;
+      background-color: #7d7d7d;
+      top: 7px;
+      left: -50%;
+      z-index: -1;
+      transition: all .8s;
+  }
+  .progressbar li:first-child:after {
+      content: none;
+  }
+  .progressbar li.active:before {
+      border-color: #55b776;
+      background-color: #55b776;
+      transition: all .8s;
+  }
+  .progressbar li.active:after {
+      background-color: #55b776;
+      transition: all .8s;
+  }
+
+.btn {
+  background-color: #77933C59;
+  margin: 5px;
+  width: 90px;
+  color: white;
+  border-radius : 30px;
+  border-color:white;
+}
+.btn:hover {
+  color: white;
+}
+.btn:focus {
+  color: white;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  width: 88%;
+  margin: 0 0 50;
+  bottom: 0;
+  font-size: 15px 
+}
+
+.progressbar img{
+	width:35;
+}
+*/

@@ -8,6 +8,7 @@
 
 .form-input { min-width: 80%; width: 80%; height: 35px; box-sizing: border-box; margin: 15px 0; padding: 25px; background: #F4F5F7; border: 0;}
 .form-input::placeholder { color: #C4C4C4; }
+.form-input.form-input-default { font-size: 24px; }
 .form-input.form-input-transparent { background: #fff; color: 000; font-size: 24px; font-weight: bold; padding: 0; margin: 0px; }
 
 .btn-default { padding: 20px 65px; background: #77933C; color: #fff; display: inline-block; border-radius: 45px; }

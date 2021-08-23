@@ -13,10 +13,18 @@ def login_session_check(request):
     else:
         return False
 
+def setting_session_check(request):
+    if request.session.get('is_setting'):
+        return True
+    else:
+        return False
+
 # Create your views here.
 def index(request):
     if login_session_check(request) == False :
         return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
     if request.GET.get('dt'):
         today = datetime.date.fromisoformat(request.GET['dt'])
     else:
@@ -63,7 +71,14 @@ def login(request):
 
         if result:
             request.session['member_index'] = result['MEM_SEQ']
-            return redirect('/')
+            
+            sets = module.dbmodule.get_setting(result['MEM_SEQ']);
+            if sets:
+                request.session['is_setting'] = True
+                return redirect('/')
+            else:
+                return redirect('/question')
+
         else:
             return HttpResponse('<script>alert("로그인 실패"); history.back();</script>');
     elif request.method == "GET":
@@ -96,6 +111,8 @@ def joinSuccess(request):
 def profile(request):
     if login_session_check(request) == False :
         return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
     if request.method == "POST":
         val = request.POST['value']
         if request.POST['type'] == 'email':
@@ -139,6 +156,8 @@ def profile(request):
 def setting(request):
     if login_session_check(request) == False :
         return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
     if request.method == "POST":
         val = request.POST['value']
         if request.POST['type'] == 'height':
@@ -174,6 +193,8 @@ def setting(request):
 def insight(request):
     if login_session_check(request) == False :
         return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
     view_data = {
         'js_name' : 'insight',
         'css_name' : 'insight',
@@ -185,30 +206,26 @@ def question(request):
     if login_session_check(request) == False :
         return redirect('/login')
     if request.method == "POST":
-        val = request.POST['value']
-        if request.POST['type'] == 'height':
-            col = 'MEM_HEIGHT'
-        elif request.POST['type'] == 'weight':
-            col = 'MEM_WEIGHT'
-        elif request.POST['type'] == 'activity':
-            col = 'MEM_ACTIVITY'
-        elif request.POST['type'] == 'vegeclass':
-            col = 'VEGE_CLASS_SEQ'
-        elif request.POST['type'] == 'vegedaily':
-            col = 'VEGE_DAILY'
-        elif request.POST['type'] == 'vegeweekly':
-            col = 'VEGE_WEEKLY'
-            
-
         param = {
-            'type' : col,
-            'val' : val,
             'seq' : request.session['member_index'],
+            'height' : request.POST['height'],
+            'weight' : request.POST['weight'],
+            'activity' : request.POST['activity'],
+            'vegeclass' : request.POST['vegeclass'],
+            'vegedaily' : request.POST['vegedaily'],
+            'vegeweekly' : request.POST['vegeweekly'],
         }
 
-        result = module.dbmodule.setting_update(param)
-        return HttpResponse(json.dumps({ 'result' : result, 'msg' : '' }))
+        result = module.dbmodule.setting_insert(param)
+        if result:
+            r = True
+        else:
+            r = False
         
+        request.session['is_setting'] = r
+
+        return HttpResponse(json.dumps({ 'result' : r, 'msg' : '' }))
+
     else:
         view_data = {
             'js_name' : 'question',
@@ -222,14 +239,14 @@ def question(request):
 def recipe(request):
     if login_session_check(request) == False :
         return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
     if request.method == "POST":
         val = request.POST['value']
-    #if request.GET.get('seq') is None:
-        #return redirect('/')
-    
-        
+    if request.GET.get('seq') is None:
+        return redirect('/')
 
-    result = module.dbmodule.get_recipe(1)
+    result = module.dbmodule.get_recipe(request.GET.get('seq'))
     view_data = {
         'js_name' : 'recipe',
         'css_name' : 'recipe',
@@ -241,6 +258,8 @@ def recipe(request):
 def planaction(request):
     if login_session_check(request) == False :
         return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
     if request.method == "POST":
         result = module.dbmodule.plan_action_update({
             'seq' : request.POST['seq'],
@@ -251,9 +270,8 @@ def planaction(request):
         return redirect('/')
 
 def test(request):
-    #for i in range(1,811):
-    #    if i == 181 or i == 246 or i == 295:
-    #        continue
+    #for i in range(876,995):
     #    module.dbmodule.recipe_emissions(i,module.pymodule.parts_calc_carbon(i))
-    #return HttpResponse(json.dumps({ 'result' : 'ok', 'msg' : '' }, ensure_ascii=False))
-    return HttpResponse(json.dumps({ 'result' : module.pymodule.parts_calc_carbon(request.GET['seq']), 'msg' : '' }, ensure_ascii=False))
+    #module.dbmodule.recipe_emissions(request.GET['seq'],module.pymodule.parts_calc_carbon(request.GET['seq']))
+    return HttpResponse(json.dumps({ 'result' : 'ok', 'msg' : '' }, ensure_ascii=False))
+    #return HttpResponse(json.dumps({ 'result' : module.pymodule.parts_calc_carbon(request.GET['seq']), 'msg' : '' }, ensure_ascii=False))

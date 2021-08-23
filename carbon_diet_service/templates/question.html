@@ -1,73 +1,92 @@
 {% include "include/head.html" %}
 <div id="contents">
-	<div class="top-bar">
-        <div class="btn-prev" onClick="history.go(-1)"><img src="/static/images/icon_prev.png"></div>
-        <div class="header-text">
-            Sing up
-        </div>
-	</div>
-	<div class="logo-box">
-		<p>
-			<img class="img logo-text" src="/static/images/logo_name.png">
-		</p>
-		<p>
-			<img class="img logo-img" src="/static/images/logo_img.png">
-		</p>
-	</div>
-	<ul class="question-list">
-		<li class="question-item">
-			<p class="question-label1">귀하의 키가 어떻게 되십니까?</p>
-			<div class="question-box1">
-				<input type="text" class="form-input form-input-transparent1 question-height" value="{{user.MEM_HEIGHT}}">
-			</div>
-		</li>
-		<li class="question-item">
-			<p class="question-label2">귀하의 몸무게가 어떻게 되십니까?</p>
-			<div class="question-box2">
-				<input type="text" class="form-input form-input-transparent2 question-weight" value="{{user.MEM_WEIGHT}}">
-			</div>
-        </li>
-		<li class="question-item">
-			<p class="question-label3">귀하의 활동수준이 어떻게 되십니까?</p>
-			<div class="question-box3">
-				<select class="form-input form-input-transparent3 question-activity" >
-					<option value="1" {% if user.MEM_ACTIVITY == 1 %}selected{% endif %}>비활동적</option>
-					<option value="2" {% if user.MEM_ACTIVITY == 2 %}selected{% endif %}>저활동적</option>
-					<option value="3" {% if user.MEM_ACTIVITY == 3 %}selected{% endif %}>활동적</option>
-					<option value="4" {% if user.MEM_ACTIVITY == 4 %}selected{% endif %}>매우 활동적</option>
-				</select>
-			</div>
-        </li>
-		<li class="question-item">
-                <p class="question-label4">귀하는 어느 수준까지 허용합니까?</p>
-				<p class="question-label4-1">귀하를 위한 맞춤형 채식 계획 설정을 위해, 다음 질문에 답해주세요.</p>
-                
-		</li>
-		<li class="question-item">
-                <p class="question-label5">귀하는 하루 중 어느 빈도로 실천하시겠습니까?</p>
-                <div class="question-box5">
-                    <select class="form-input form-input-transparent5 question-vegedaily" >
-                        <option value="1" {% if user.VEGE_DAILY == 1 %}selected{% endif %}>하루 1회</option>
-                        <option value="2" {% if user.VEGE_DAILY == 2 %}selected{% endif %}>하루 2회</option>
-                        <option value="3" {% if user.VEGE_DAILY == 3 %}selected{% endif %}>하루 3회</option>
-                    </select>
-                </div>
-            </li>
-            <li class="question-item">
-                <p class="question-label6">귀하는 일주일 중 어느 빈도로 실천하시겠습니까?</p>
-                <div class="question-box6">
-                    <select class="form-input form-input-transparent6 question-vegeweekly">
-                        <option value="1" {% if user.VEGE_WEEKLY == 1 %}selected{% endif %}>주 1회</option>
-                        <option value="2" {% if user.VEGE_WEEKLY == 2 %}selected{% endif %}>주 2회</option>
-                        <option value="3" {% if user.VEGE_WEEKLY == 3 %}selected{% endif %}>주 3회</option>
-                        <option value="4" {% if user.VEGE_WEEKLY == 4 %}selected{% endif %}>주 4회</option>
-                        <option value="5" {% if user.VEGE_WEEKLY == 5 %}selected{% endif %}>주 5회</option>
-                        <option value="6" {% if user.VEGE_WEEKLY == 6 %}selected{% endif %}>주 6회</option>
-                        <option value="7" {% if user.VEGE_WEEKLY == 7 %}selected{% endif %}>주 7회</option>
-                    </select>
-                </div>
-            </li>
-			<div class="mt-20 btn-default btn-join">완 료</div>
-	</ul>
+	<div class="contents-box">
+        <form method="post" id="questionForm">
+			{% csrf_token %}
+            <ul class="question-list">
+                <li class="question-item">
+                    <p class="question-label">귀하의 키가 어떻게 되십니까?</p>
+                    <div class="question-box">
+                        <input type="text" class="form-input form-input-default question-height" value="">
+                    </div>
+                </li>
+                <li class="question-item">
+                    <p class="question-label">귀하의 몸무게가 어떻게 되십니까?</p>
+                    <div class="question-box">
+                        <input type="text" class="form-input form-input-default question-weight" value="">
+                    </div>
+                </li>
+                <li class="question-item">
+                    <p class="question-label">귀하의 활동수준이 어떻게 되십니까?</p>
+                    <div class="question-box">
+                        <select class="form-input form-input-default question-activity" >
+                            <option value="1">비활동적</option>
+                            <option value="2">저활동적</option>
+                            <option value="3">활동적</option>
+                            <option value="4">매우 활동적</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="question-item">
+                    <p class="question-label">귀하는 어느 수준까지 허용합니까?</p>
+                    <p class="question-sub-label">귀하를 위한 맞춤형 채식 계획 설정을 위해, 다음 질문에 답해주세요.</p>
+                    <!--
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <ul id="progress-bar" class="progressbar">
+                                    <li class="active"><img src="/static/images/vege.png"></li>
+                                    <li><img src="/static/images/milk.png"></li>
+                                    <li><img src="/static/images/egg.png"></li>
+                                    <li><img src="/static/images/fish.png"></li>
+                                    <li><img src="/static/images/chicken.png"></li>
+                                    <li><img src="/static/images/cowpig.png"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <button class="btn" id="Next">다음 수준</button>
+                        <button class="btn" id="Back">이전 수준</button>
+                    </div>
+                    -->
+                    <div class="question-box mt-20">
+                        <div class="vegeclass-radio"><input type="radio" name="vegeclass" class="vegeclass" value="6"><img src="/static/images/vege_class_6_non.png" data-val="6"></div>
+                        <div class="vegeclass-radio"><input type="radio" name="vegeclass" class="vegeclass" value="5"><img src="/static/images/vege_class_5_non.png" data-val="5"></div>
+                        <div class="vegeclass-radio"><input type="radio" name="vegeclass" class="vegeclass" value="4"><img src="/static/images/vege_class_4_non.png" data-val="4"></div>
+                        <div class="vegeclass-radio"><input type="radio" name="vegeclass" class="vegeclass" value="3"><img src="/static/images/vege_class_3_non.png" data-val="3"></div>
+                        <div class="vegeclass-radio"><input type="radio" name="vegeclass" class="vegeclass" value="2"><img src="/static/images/vege_class_2_non.png" data-val="2"></div>
+                        <div class="vegeclass-radio"><input type="radio" name="vegeclass" class="vegeclass" value="1"><img src="/static/images/vege_class_1_non.png" data-val="1"></div>
+                    </div>
+                </li>
+                <li class="question-item">
+                        <p class="question-label">귀하는 하루 중 어느 빈도로 실천하시겠습니까?</p>
+                        <div class="question-box">
+                            <select class="form-input form-input-default question-vegedaily" >
+                                <option value="1">하루 1회</option>
+                                <option value="2">하루 2회</option>
+                                <option value="3">하루 3회</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="question-item">
+                        <p class="question-label">귀하는 일주일 중 어느 빈도로 실천하시겠습니까?</p>
+                        <div class="question-box">
+                            <select class="form-input form-input-default question-vegeweekly">
+                                <option value="1">주 1회</option>
+                                <option value="2">주 2회</option>
+                                <option value="3">주 3회</option>
+                                <option value="4">주 4회</option>
+                                <option value="5">주 5회</option>
+                                <option value="6">주 6회</option>
+                                <option value="7">주 7회</option>
+                            </select>
+                        </div>
+                    </li>
+                </li>
+            </ul>
+            <div class="mt-20 btn-default btn-question">완 료</div>
+        </form>
+    </div>
 </div>
 {% include "include/footer.html" %}
