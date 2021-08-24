@@ -175,6 +175,52 @@ def get_plan(param):
     except:
         return None
 
+# 탄소배출량 계산
+def get_plan_emissions(param):
+    try:
+        cursor = connection.cursor()
+        params = {}
+        params['seq'] = param['seq']
+        query = "SELECT SUM(recipe.INFO_EMISSIONS) as `EMISSIONS` FROM mealPlan " \
+                "LEFT JOIN recipe ON recipe.RCP_SEQ = mealPlan.RCP_SEQ " \
+                "WHERE mealPlan.MEM_SEQ = '{seq}' "
+
+        if 'date' in param.keys():
+            query += "AND PLAN_DATE = '{date}' "
+            params['date'] = param['date']
+
+        if 'action' in param.keys():
+            query += "AND IS_ACTION = 1 "
+        
+        if 'foot' in param.keys():
+            query += "AND IS_VEGE = 1 "
+
+        cursor.execute(query.format_map(param))
+        result = fetchDict(cursor)
+        connection.commit()
+        connection.close()
+
+        return result[0]
+    except:
+        return None
+
+def get_emissions_avg(seq):
+    try:
+        cursor = connection.cursor()
+        query = "SELECT AVG(a.EMISSIONS) AS `AVG_EMISSIONS` FROM (SELECT SUM(recipe.INFO_EMISSIONS) AS `EMISSIONS` FROM mealPlan " \
+                "LEFT JOIN recipe ON recipe.RCP_SEQ = mealPlan.RCP_SEQ " \
+                "WHERE mealPlan.MEM_SEQ = '{}' " \
+                "AND IS_ACTION = 1 " \
+                "GROUP BY PLAN_DATE) AS a ".format(seq)
+
+        cursor.execute(query)
+        result = fetchDict(cursor)
+        connection.commit()
+        connection.close()
+
+        return result[0]
+    except:
+        return 0
 # 레시피 가져오기
 def get_recipe(seq):
     try:

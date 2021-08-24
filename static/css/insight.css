@@ -11,6 +11,7 @@
 .insight-box .insight-line { margin: 30px 0; box-sizing: border-box; width: 100%; border-bottom: 1px solid #000; }
 .insight-box img.insight-img { width:45px; margin-top: -55px; padding: 0 10px; background: #fff; }
 .insight-box .txt-green .label{}
+.insight-box .rate-label { margin:5px 0 20px; }
 
 #insight-graph { width: 100%; display: inline-block;    height: 300px; margin: 30px 0; }
 /*

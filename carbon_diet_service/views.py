@@ -4,6 +4,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django import forms
 import hashlib, json, datetime
 import module.pymodule, module.dbmodule
+import decimal
+import math
 
 weekday_dict = {0:'월', 1:'화', 2:'수', 3:'목', 4:'금', 5:'토', 6:'일'}
 
@@ -197,11 +199,31 @@ def insight(request):
     if setting_session_check(request) == False :
         return redirect('/question')
 
-    # 오늘 식단 발자국
-    # 전체 식단 발자국
-    # 오늘 식사 온실가스
+    today = datetime.date.today()
 
-    # 전체평균 온실가스
+    # 오늘 식단 발자국
+    todayEmission = module.dbmodule.get_plan_emissions({
+        'seq' : request.session['member_index'],
+        'date' : today,
+        'action' : True,
+    })
+
+    # 전체 식단 발자국
+    allEmission = module.dbmodule.get_plan_emissions({
+        'seq' : request.session['member_index'],
+        'action' : True,
+    })
+
+    today_carbon = todayEmission['EMISSIONS'] * decimal.Decimal('0.001')
+    all_carbon = allEmission['EMISSIONS'] * decimal.Decimal(0.001)
+    avg_carbon = module.dbmodule.get_emissions_avg(request.session['member_index'])
+    carbon_contribution = round(avg_carbon['AVG_EMISSIONS'], 0)
+    if carbon_contribution <= 1500:
+        carbon_contribution = 1500
+    elif 1500 * math.pi <= carbon_contribution:
+        carbon_contribution = round(1500 * math.pi, 0)
+
+    #rank = 
 
     view_data = {
         'js_name' : 'insight',
@@ -209,7 +231,11 @@ def insight(request):
         'title' : 'Carbon_Diet',
         'user' : module.dbmodule.get_member(request.session['member_index']),
         # 기여도
-        'carbon_contribution' : 2000,
+        'carbon_contribution' : carbon_contribution,
+        'today_contribution' : round(today_carbon,2),
+        'all_contribution' : round(all_carbon,2),
+        'car_carbon' : round(all_carbon * decimal.Decimal('4.17'),2),
+        'tree_count' : round(all_carbon * decimal.Decimal('0.15281'),2),
     }
     return render(request, 'insight.html', view_data)
 

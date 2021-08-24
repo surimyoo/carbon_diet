@@ -15,26 +15,26 @@
                 <div class="foot-title txt-bold">식단 탄소 발자국</div>
                 <div class="foot-left">
                     <div class="foot-type">오늘 식단</div>
-                    <div class="foot-count txt-bold">00</div>
+                    <div class="foot-count txt-bold">{{ today_contribution }}</div>
                 </div>
                 <div class="foot-right">
                     <div class="foot-type">전체 식단</div>
-                    <div class="foot-count txt-bold">00</div>
+                    <div class="foot-count txt-bold">{{ all_contribution }}</div>
                 </div>
             </div>
         </div>
         <div class="insight-box"><div class="insight-line"></div></div>
         <div class="insight-box">
             <div>
-                <p><span class="txt-bold">{{ user.MEM_NNM }}</span>님은 오늘 한끼 식사로</p>
-                <p><span class="txt-bold txt-pink txt-box">STAT_EMISSIONS</span>의 온실가스를</p>
+                <p><span class="txt-bold">{{ user.MEM_NNM }}</span>님은 식사를 통해 총</p>
+                <p><span class="txt-bold txt-pink txt-box">{{ today_contribution }}</span>의 온실가스를</p>
                 <p>배출했습니다.</p>
                 <p>&nbsp;</p>
-                <p>이는 <span class="txt-blue">승용차 1대가 <span class="txt-bold txt-box">000</span>km</span> 이동 시</p>
+                <p>이는 <span class="txt-blue">승용차 1대가 <span class="txt-bold txt-box">{{ car_carbon }}</span>km</span> 이동 시</p>
                 <p>배출하는 온실가스량에 해당하며,</p>
                 <p>&nbsp;</p>
                 <p>배출된 온실가스를 흡수하기 위해서는</p>
-                <p><span class="txt-green">소나무 <span class="txt-bold txt-box">000</span> 그루</span>가 필요합니다.</p>
+                <p><span class="txt-green">소나무 <span class="txt-bold txt-box">{{ tree_count }}</span> 그루</span>가 필요합니다.</p>
             </div>
         </div>
         <div class="insight-box">
@@ -44,7 +44,7 @@
         <div class="insight-box">
             <p>나의 탄소기여도</p>
             <div id="insight-graph"></div>
-            <p class="txt-bold txt-green"><span class="txt-round">상위</span>00%</p>
+            <!--<p class="txt-bold txt-green rate-label"><span class="txt-round">상위</span>00%</p>-->
         </div>
 	</div>
 </div>

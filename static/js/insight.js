@@ -20,7 +20,7 @@ var myLineChart = new Chart(ctx, {
 */
 $(document).ready(function() {
     var cosPoints = []; 
-    for (var i=Math.PI; i<3*Math.PI; i+=0.1){ 
+    for (var i=Math.PI; i<=3*Math.PI; i+=0.1){ 
         cosPoints.push([i / Math.PI * 1500, Math.cos(i) / 100]);
     }
 
