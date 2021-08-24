@@ -8,22 +8,26 @@ Original file is located at
 """
 
 import numpy as np
-import pandas as pd
+import module.dbmodule
+#import pandas as pd
 import random
 
-recipe_df = pd.read_excel('/content/drive/Shareddrives/2021 데이터청년캠퍼스/데이터베이스/recipe_final.xlsx')  #최종 레시피 데이터셋
+recipe_df = module.dbmodule.get_recipe_list()  #최종 레시피 데이터셋
+#recipe_df = pd.read_excel('/var/www/html/carbon_diet/carbon_diet/recipe_final.xlsx')  #최종 레시피 데이터셋
 
-recipe_df = recipe_df.drop(['Unnamed: 0'], axis=1)
+#recipe_df = recipe_df.drop(['Unnamed: 0'], axis=1)
 
 #채식 분류를 문자형에서 숫자로 바꿈
-recipe_df['Vegetarian_class']=recipe_df['Vegetarian_class'].replace(['채소', '달걀', '우유(유제품)', '생선,조개', '가금류', '소,돼지'], [0,1,2,3,4,5])
+#recipe_df['Vegetarian_class']=recipe_df['Vegetarian_class'].replace(['채소', '달걀', '우유(유제품)', '생선,조개', '가금류', '소,돼지'], [0,1,2,3,4,5])
 
 #비건 음식 인덱스 채우는 함수
 
 def find_true_vege(vege,day,week):
+  true_vege_list = []
+  for rc in recipe_df:
+    if rc['VEGE_CLASS_SEQ'] <= vege:
+      true_vege_list.append(rc['RCP_SEQ'])
 
-  true_vege=recipe_df[recipe_df['Vegetarian_class']<=vege]
-  true_vege_list=true_vege['RCP_SEQ'].values.tolist() 
 
   count=day*week
 
@@ -60,8 +64,10 @@ def find_true_vege(vege,day,week):
 #나머지 식단 채우는 함수
 def find_false_vege(recipe_li,vege):
 
-  false_vege=recipe_df[recipe_df['Vegetarian_class']>vege]
-  false_vege_list=false_vege['RCP_SEQ'].values.tolist()
+  false_vege_list = []
+  for rc in recipe_df:
+    if rc['VEGE_CLASS_SEQ'] > vege:
+      false_vege_list.append(rc['RCP_SEQ'])
 
   avo_dupli=[]
 

@@ -2,10 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 from django import forms
-import hashlib, json, datetime
-import module.pymodule, module.dbmodule
-import decimal
-import math
+import hashlib, json, datetime, decimal, math
+import module.pymodule, module.dbmodule, module.recommendRecipeIndex
 
 weekday_dict = {0:'월', 1:'화', 2:'수', 3:'목', 4:'금', 5:'토', 6:'일'}
 
@@ -33,22 +31,43 @@ def index(request):
         today = datetime.date.today()
     # 월요일
     monday = today - datetime.timedelta(days=(today.weekday() % 7))
+    start_day = monday
     # 일요일
     sunday = monday + datetime.timedelta(days=6)
 
     week = {}
     g = 0
-    while monday <= sunday:
+    while start_day <= sunday:
         week[g] = {
-            'days' : monday.day,
+            'days' : start_day.day,
             'week' : weekday_dict[g],
-            'ymd' : monday.isoformat(),
+            'ymd' : start_day.isoformat(),
         }
         g += 1
-        monday += datetime.timedelta(days=1)
+        start_day += datetime.timedelta(days=1)
 
     # 식단 가져오기
     mealplan = module.dbmodule.get_plan({ 'seq' : request.session['member_index'],'date' : today.isoformat() })
+    start_day = monday
+    if mealplan == [] or mealplan is None:
+        setting = module.dbmodule.get_setting(request.session['member_index'])
+        setPlan, vegelist = module.recommendRecipeIndex.recommend_recipe_index(setting['VEGE_CLASS_SEQ'],setting['VEGE_DAILY'],setting['VEGE_WEEKLY'])
+        plan_idx = 0
+        for sp in setPlan:
+            recipe = module.dbmodule.get_recipe(sp)
+            module.dbmodule.insert_plan({
+                'seq' : request.session['member_index'],
+                'rcp' : sp,
+                'date' : start_day,
+                'emissions' : recipe['INFO_EMISSIONS'],
+                'type' : plan_idx%3,
+                'isvege' : vegelist[plan_idx],
+            })
+            plan_idx += 1
+            if plan_idx%3 == 0:
+                start_day += datetime.timedelta(days=1)
+
+        mealplan = module.dbmodule.get_plan({ 'seq' : request.session['member_index'],'date' : today.isoformat() })
 
     view_data = {
         'js_name' : 'main',
@@ -310,5 +329,6 @@ def test(request):
     #for i in range(876,995):
     #    module.dbmodule.recipe_emissions(i,module.pymodule.parts_calc_carbon(i))
     #module.dbmodule.recipe_emissions(request.GET['seq'],module.pymodule.parts_calc_carbon(request.GET['seq']))
-    return HttpResponse(json.dumps({ 'result' : 'ok', 'msg' : '' }, ensure_ascii=False))
+    result = module.recommendRecipeIndex.recommend_recipe_index(4,2,4)
+    return HttpResponse(result)
     #return HttpResponse(json.dumps({ 'result' : module.pymodule.parts_calc_carbon(request.GET['seq']), 'msg' : '' }, ensure_ascii=False))

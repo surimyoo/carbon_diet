@@ -181,9 +181,8 @@ def get_plan_emissions(param):
         cursor = connection.cursor()
         params = {}
         params['seq'] = param['seq']
-        query = "SELECT SUM(recipe.INFO_EMISSIONS) as `EMISSIONS` FROM mealPlan " \
-                "LEFT JOIN recipe ON recipe.RCP_SEQ = mealPlan.RCP_SEQ " \
-                "WHERE mealPlan.MEM_SEQ = '{seq}' "
+        query = "SELECT SUM(INFO_EMISSIONS) as `EMISSIONS` FROM mealPlan " \
+                "WHERE MEM_SEQ = '{seq}' "
 
         if 'date' in param.keys():
             query += "AND PLAN_DATE = '{date}' "
@@ -204,12 +203,30 @@ def get_plan_emissions(param):
     except:
         return None
 
+def insert_plan(param):
+    try:
+        cursor = connection.cursor()
+        query = "INSERT INTO mealPlan SET " \
+                "PLAN_DATE = '{date}'," \
+                "MEM_SEQ = '{seq}'," \
+                "RCP_SEQ = '{rcp}'," \
+                "INFO_EMISSIONS = '{emissions}'," \
+                "PLAN_TYPE = '{type}'," \
+                "IS_ACTION = 0," \
+                "IS_VEGE = '{isvege}'".format_map(param)
+        result = cursor.execute(query)
+        connection.commit()
+        connection.close()
+
+        return result
+    except:
+        return None
+
 def get_emissions_avg(seq):
     try:
         cursor = connection.cursor()
-        query = "SELECT AVG(a.EMISSIONS) AS `AVG_EMISSIONS` FROM (SELECT SUM(recipe.INFO_EMISSIONS) AS `EMISSIONS` FROM mealPlan " \
-                "LEFT JOIN recipe ON recipe.RCP_SEQ = mealPlan.RCP_SEQ " \
-                "WHERE mealPlan.MEM_SEQ = '{}' " \
+        query = "SELECT AVG(a.EMISSIONS) AS `AVG_EMISSIONS` FROM (SELECT SUM(mealPlan.INFO_EMISSIONS) AS `EMISSIONS` FROM mealPlan " \
+                "WHERE MEM_SEQ = '{}' " \
                 "AND IS_ACTION = 1 " \
                 "GROUP BY PLAN_DATE) AS a ".format(seq)
 
@@ -234,6 +251,21 @@ def get_recipe(seq):
         connection.close()
 
         return result[0]
+    except:
+        return None
+
+# 레시피 가져오기
+def get_recipe_list():
+    try:
+        cursor = connection.cursor()
+        query = "SELECT * FROM recipe "
+
+        cursor.execute(query)
+        result = fetchDict(cursor)
+        connection.commit()
+        connection.close()
+
+        return result
     except:
         return None
 
