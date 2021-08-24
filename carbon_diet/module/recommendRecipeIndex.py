@@ -25,7 +25,7 @@ recipe_df = module.dbmodule.get_recipe_list()  #최종 레시피 데이터셋
 def find_true_vege(vege,day,week):
   true_vege_list = []
   for rc in recipe_df:
-    if rc['VEGE_CLASS_SEQ'] <= vege:
+    if rc['VEGE_CLASS_SEQ'] >= vege:
       true_vege_list.append(rc['RCP_SEQ'])
 
 
@@ -62,12 +62,10 @@ def find_true_vege(vege,day,week):
   return recipe_li
 
 #나머지 식단 채우는 함수
-def find_false_vege(recipe_li,vege):
-
+def find_false_vege(recipe_li):
   false_vege_list = []
   for rc in recipe_df:
-    if rc['VEGE_CLASS_SEQ'] > vege:
-      false_vege_list.append(rc['RCP_SEQ'])
+    false_vege_list.append(rc['RCP_SEQ'])
 
   avo_dupli=[]
 
@@ -87,7 +85,7 @@ def find_false_vege(recipe_li,vege):
 
 def recommend_recipe_index(vege,day,week): 
   user_recipe=find_true_vege(vege,day,week) #비건 음식 인덱스 채우는 함수
-  final_user_recipe=find_false_vege(user_recipe,vege) # 남은 칸 일반식으로 채우기
+  final_user_recipe=find_false_vege(user_recipe) # 남은 칸 일반식으로 채우기
 
   reco_recipe_idx = []
   reco_recipe_isvege = []

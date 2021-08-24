@@ -329,6 +329,6 @@ def test(request):
     #for i in range(876,995):
     #    module.dbmodule.recipe_emissions(i,module.pymodule.parts_calc_carbon(i))
     #module.dbmodule.recipe_emissions(request.GET['seq'],module.pymodule.parts_calc_carbon(request.GET['seq']))
-    result = module.recommendRecipeIndex.recommend_recipe_index(4,2,4)
+    result = module.recommendRecipeIndex.recommend_recipe_index(6,3,3)
     return HttpResponse(result)
     #return HttpResponse(json.dumps({ 'result' : module.pymodule.parts_calc_carbon(request.GET['seq']), 'msg' : '' }, ensure_ascii=False))
