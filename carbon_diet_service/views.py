@@ -226,16 +226,22 @@ def insight(request):
         'date' : today,
         'action' : True,
     })
+    if todayEmission['EMISSIONS'] is None:
+        todayEmission['EMISSIONS'] = 0
 
     # 전체 식단 발자국
     allEmission = module.dbmodule.get_plan_emissions({
         'seq' : request.session['member_index'],
         'action' : True,
     })
+    if allEmission['EMISSIONS'] is None:
+        allEmission['EMISSIONS'] = 0
 
     today_carbon = todayEmission['EMISSIONS'] * decimal.Decimal('0.001')
     all_carbon = allEmission['EMISSIONS'] * decimal.Decimal(0.001)
     avg_carbon = module.dbmodule.get_emissions_avg(request.session['member_index'])
+    if avg_carbon['AVG_EMISSIONS'] is None:
+        avg_carbon['AVG_EMISSIONS'] = 0
     carbon_contribution = round(avg_carbon['AVG_EMISSIONS'], 0)
     if carbon_contribution <= 1500:
         carbon_contribution = 1500
