@@ -3,7 +3,31 @@
 #### 2021 데이터청년캠퍼스 B반 떡잎방범대(1조) 프로젝트
 <!--Text Attributes-->
 "Carbon Diet"는 탄소 중립을 위해 채식을 시작하는 이들에게 다양한 채식 식단 정보를 제공하고 사용자의 탄소기여도를 확인할 수 있도록 기획된 안드로이드 하이브리드앱입니다. 사용자는 자신이 도전하고자 하는 채식 수준과 채식빈도를 설정하고 앱으로부터 해당 설정에 맞춰 일주일 단위로 채식 메뉴들을 제공받습니다.
+<br><br><br>
+해당 프로젝트는 파일 목록 메인에 있는 **'carbon_diet_app.apk'** 파일을 통해 안드로이드 휴대폰에 설치하여 결과물을 바로 확인하실 수 있습니다.
+
+
+<br><br><br>
+<!--Bullet list-->
+[파일 목록 구조]
+<br>
+**carbon_diet** : django project 디폴트 앱 <br>
+**carbon_diet/DB_table** : 데이터베이스에 쓰인 기초 데이터들에 대한 csv 파일. 테이블 별로 파일 구분. <br>
+**carbon_diet/module** : 
+* 레시피에 대한 채식수준 자동 분류 모델(VeganRecipeClassification_DeepLearning.ipynb) 
+* 데이터베이스 활용 로직(dbmodule.py) 
+* 레시피에 대한 탄소배출량 계산 로직(pymodule.py) 
+* 레시피 웹크롤링 로직(recipe_crawling.ipynb) 
+* 자동 식단 추천 로직(recommendRecipeIndex.py)
 <br><br>
+<!--Text Attributes-->
+**carbon_diet_service** : django project 구현 앱<br>
+**carbon_diet_service/templates** : html 페이지
+<br><br>
+**static** : css, images, javascript 정적파일
+
+
+<br><br><br>
 [채식주의 종류]
 <!--Table-->
 |채식주의 종류 | 설명 |
