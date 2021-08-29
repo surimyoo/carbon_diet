@@ -32,7 +32,7 @@ $(document).ready(function() {
                 label:'Carbon Emission'
             },
             yaxis:{
-                label:'Rate'
+                label:'Rate', textPosition: 'none'
             }
         }
     });
