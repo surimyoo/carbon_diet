@@ -18,7 +18,7 @@
 * 데이터베이스 활용 로직(dbmodule.py) 
 * 레시피에 대한 탄소배출량 계산 로직(pymodule.py) 
 * 레시피 웹크롤링 로직(recipe_crawling.ipynb) 
-* 자동 식단 추천 로직(recommendRecipeIndex.py)
+* 자동 식단 추천 로직(revised_reciperecommend.py)
 <br><br>
 <!--Text Attributes-->
 **carbon_diet_service** : django project 구현 앱<br>
