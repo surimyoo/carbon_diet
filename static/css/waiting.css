@@ -1,0 +1,11 @@
+.logo-box { display: inline-block; padding: 60px 0 30px; box-sizing: border-box; text-align: center; float: left; width: 100%; position: relative; }
+.logo-box .logo-img { width: 40%; max-height: 85px; }
+
+.page-txt { float: left; display: inline-block; width: 100%; text-align: center; }
+.page-txt h2 {}
+.waiting-list { float: left; width: 100%; }
+.waiting-list .waiting-item { width: 100%; padding: 40px 20px; box-sizing: border-box; }
+.waiting-list .waiting-item .waiting-check { float: left; }
+.waiting-list .waiting-item .waiting-check .check-round{ width: 22px; height: 22px; display: inline-block; background: url('/static/images/icon_non_checked.png'); }
+.waiting-list .waiting-item .waiting-check.active .check-round{ background: url('/static/images/icon_checked.png'); }
+.waiting-list .waiting-item .waiting-txt { float: left; width: calc(100% - 30px); margin-left: 5px; }

@@ -21,10 +21,10 @@ var myLineChart = new Chart(ctx, {
 $(document).ready(function() {
     var cosPoints = []; 
     for (var i=Math.PI; i<=3*Math.PI; i+=0.1){ 
-        cosPoints.push([i / Math.PI * 1500, Math.cos(i) / 100]);
+        cosPoints.push([i / Math.PI * 15, Math.cos(i) / 100]);
     }
 
-    var plot1 = $.jqplot('insight-graph', [cosPoints, [[carbon_contribution, Math.cos(carbon_contribution / 1500 * Math.PI) / 100]]], {  
+    var plot1 = $.jqplot('insight-graph', [cosPoints, [[carbon_contribution, Math.cos(carbon_contribution / 15 * Math.PI) / 100]]], {  
         title: '',
         series:[{showMarker:false}],
         axes:{

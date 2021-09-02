@@ -8,6 +8,7 @@ Original file is located at
 """
 
 import numpy as np
+import module.dbmodule
 import pandas as pd
 import random
 
@@ -16,9 +17,10 @@ recipe_df = module.dbmodule.get_recipe_list()
 #비건 음식 인덱스 채우는 함수
 
 def find_true_vege(vege,day,week):
-
-  true_vege=recipe_df[recipe_df['VEGE_CLASS_SEQ']>=vege]
-  true_vege_list=true_vege['RCP_SEQ'].values.tolist() 
+  true_vege_list = []
+  for rc in recipe_df:
+    if rc['VEGE_CLASS_SEQ'] >= vege:
+      true_vege_list.append(rc['RCP_SEQ'])
 
   count=day*week
 
@@ -54,9 +56,9 @@ def find_true_vege(vege,day,week):
 
 #나머지 식단 채우는 함수
 def find_false_vege(recipe_li,vege):
-
-  false_vege=recipe_df[recipe_df['VEGE_CLASS_SEQ']<vege]
-  false_vege_list=false_vege['RCP_SEQ'].values.tolist()
+  false_vege_list = []
+  for rc in recipe_df:
+    false_vege_list.append(rc['RCP_SEQ'])
 
   avo_dupli=[]
 
@@ -79,7 +81,15 @@ def recommend_recipe_index(vege,day,week): #식단 인덱스 추천 함수
   user_recipe=find_true_vege(vege,day,week) #비건 식단 먼저 채우기
   final_user_recipe=find_false_vege(user_recipe,vege) # 남은 칸 다른 식단으로 채우기
 
-  return final_user_recipe
+  reco_recipe_idx = []
+  reco_recipe_isvege = []
+
+  for list2 in final_user_recipe:
+    for list1 in list2:
+      reco_recipe_idx.append(list1[0])
+      reco_recipe_isvege.append(list1[1])
+
+  return reco_recipe_idx, reco_recipe_isvege
 
 def show_recipe_details(final_user_recipe):
   df = pd.DataFrame()
@@ -123,3 +133,4 @@ def recipeRecommend_C(vege, day, week):
       reco_recipe_isvege.append(list1[1])
 
   return reco_recipe_idx, reco_recipe_isvege
+

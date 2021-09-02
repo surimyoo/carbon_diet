@@ -36,5 +36,10 @@ urlpatterns = [
     
     # 실천여부변경
     path('planaction', views.planaction),
-    path('test', views.test),
+    
+    # 대기페이지
+    path('waiting', views.waiting),
+
+    # 스토어
+    path('store', views.store),
 ]

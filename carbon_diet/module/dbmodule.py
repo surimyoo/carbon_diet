@@ -222,6 +222,21 @@ def insert_plan(param):
     except:
         return None
 
+# 레시피 초기화
+def reset_plan(param):
+    try:
+        cursor = connection.cursor()
+        query = "DELETE FROM mealPlan WHERE " \
+                "PLAN_DATE = '{date}' AND " \
+                "MEM_SEQ = '{seq}' ".format_map(param)
+        result = cursor.execute(query)
+        connection.commit()
+        connection.close()
+
+        return True
+    except:
+        return False
+
 def get_emissions_avg(seq):
     try:
         cursor = connection.cursor()

@@ -61,7 +61,7 @@ $(document).ready(function() {
         $.post('/question', param, function(response) {
             if (response.result) {
                 alert('입력이 완료되었습니다.');
-                location.href = '/';
+                location.href = '/waiting';
             } else {
                 alert('입력에 실패하였습니다.\n다시 시도해 주세요.');
             }

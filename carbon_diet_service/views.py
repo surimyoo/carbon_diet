@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.serializers.json import DjangoJSONEncoder
 from django import forms
 import hashlib, json, datetime, decimal, math
-import module.pymodule, module.dbmodule, module.recommendRecipeIndex
+import module.pymodule, module.dbmodule, module.revised_reciperecommend
 
 weekday_dict = {0:'월', 1:'화', 2:'수', 3:'목', 4:'금', 5:'토', 6:'일'}
 
@@ -51,7 +51,7 @@ def index(request):
     start_day = monday
     if mealplan == [] or mealplan is None:
         setting = module.dbmodule.get_setting(request.session['member_index'])
-        setPlan, vegelist = module.recommendRecipeIndex.recommend_recipe_index(setting['VEGE_CLASS_SEQ'],setting['VEGE_DAILY'],setting['VEGE_WEEKLY'])
+        setPlan, vegelist = module.revised_reciperecommend.recommend_recipe_index(setting['VEGE_CLASS_SEQ'],setting['VEGE_DAILY'],setting['VEGE_WEEKLY'])
         plan_idx = 0
         for sp in setPlan:
             recipe = module.dbmodule.get_recipe(sp)
@@ -248,15 +248,13 @@ def insight(request):
     elif 1500 * math.pi <= carbon_contribution:
         carbon_contribution = round(1500 * math.pi, 0)
 
-    #rank = 
-
     view_data = {
         'js_name' : 'insight',
         'css_name' : 'insight',
         'title' : 'Carbon_Diet',
         'user' : module.dbmodule.get_member(request.session['member_index']),
         # 기여도
-        'carbon_contribution' : carbon_contribution,
+        'carbon_contribution' : round(carbon_contribution / 100, 0),
         'today_contribution' : round(today_carbon,2),
         'all_contribution' : round(all_carbon,2),
         'car_carbon' : round(all_carbon * decimal.Decimal('4.17'),2),
@@ -331,10 +329,36 @@ def planaction(request):
     else:
         return redirect('/')
 
-def test(request):
+def waiting(request):
+    if login_session_check(request) == False :
+        return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
+
+    # 식단 초기화
+    today = datetime.date.today()
+    # 월요일
+    monday = today - datetime.timedelta(days=(today.weekday() % 7))
+    start_day = today
+    # 일요일
+    sunday = monday + datetime.timedelta(days=6)
+
+    while start_day <= sunday:
+        module.dbmodule.reset_plan({ 'seq' : request.session['member_index'],'date' : start_day.isoformat() });
+        start_day += datetime.timedelta(days=1)
+
+    return render(request, 'waiting.html', { 'js_name' : 'waiting', 'css_name' : 'waiting' })
+
+def store(request):
+    if login_session_check(request) == False :
+        return redirect('/login')
+    if setting_session_check(request) == False :
+        return redirect('/question')
+    return render(request, 'store.html', { 'js_name' : 'store', 'css_name' : 'store', 'title' : ' ' })
+#def test(request):
     #for i in range(876,995):
     #    module.dbmodule.recipe_emissions(i,module.pymodule.parts_calc_carbon(i))
     #module.dbmodule.recipe_emissions(request.GET['seq'],module.pymodule.parts_calc_carbon(request.GET['seq']))
-    result = module.recommendRecipeIndex.recommend_recipe_index(6,3,3)
-    return HttpResponse(result)
+    #result = module.revised_reciperecommend.recommend_recipe_index(6,3,3)
+    #return HttpResponse(result)
     #return HttpResponse(json.dumps({ 'result' : module.pymodule.parts_calc_carbon(request.GET['seq']), 'msg' : '' }, ensure_ascii=False))

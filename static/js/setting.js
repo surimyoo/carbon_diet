@@ -23,6 +23,7 @@ $(document).ready(function() {
 		};
 		$.post('/setting', param, function(response) {
 			if (response.result) {
+                $('#header .btn-prev').addClass('btn-reset').removeClass('btn-prev');
 				alert('변경되었습니다.');
 			} else {
 				if (response.msg) {

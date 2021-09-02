@@ -31,6 +31,7 @@
 #header { height: 55px; display: block; text-align: center; box-sizing: border-box; border-bottom: 1px solid #000; margin: 0 15px; }
 #header .btn-menu { float: left; padding: 17px; position: absolute; top: 0; left: 0; }
 #header .btn-prev { float: left; padding: 17px; position: absolute; top: 0; left: 0; }
+#header .btn-reset { float: left; padding: 17px; position: absolute; top: 0; left: 0; }
 #header .logo-img { position: relative; height: 55px; display: inline-block; line-height: 54px; font-size: 30px; font-weight: bold; }
 #header .logo-img img { height: 55px; }
 

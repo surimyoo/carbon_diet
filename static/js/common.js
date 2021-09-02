@@ -10,6 +10,9 @@ $(document).ready(function() {
     $(document).on('click', '#header .btn-prev', function() {
         history.back();
     });
+    $(document).on('click', '#header .btn-reset', function() {
+        location.replace('/waiting');
+    });
 
     /* 메뉴닫기 */
     $(document).on('click', '#side-menu .close-menu', function() {
@@ -24,6 +27,11 @@ $(document).ready(function() {
     /* 메뉴 - insight */
     $(document).on('click', '#side-menu .menu-item.menu-insight', function() {
         location.href = '/insight';
+    });
+
+    /* 메뉴 - Store */
+    $(document).on('click', '#side-menu .menu-item.menu-store', function() {
+        location.href = '/store';
     });
 
     /* 메뉴 - settings */
