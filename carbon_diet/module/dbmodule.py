@@ -203,6 +203,26 @@ def get_plan_emissions(param):
     except:
         return None
 
+def check_plan(param):
+    try:
+        cursor = connection.cursor()
+        query = "SELECT * FROM mealPlan WHERE " \
+                "PLAN_DATE = '{date}' AND " \
+                "MEM_SEQ = '{seq}' AND " \
+                "PLAN_TYPE = '{type}' ".format_map(param)
+
+        cursor.execute(query)
+        result = fetchDict(cursor)
+        connection.commit()
+        connection.close()
+
+        if result:
+            return True
+        else:
+            return False
+    except:
+        return False
+
 def insert_plan(param):
     try:
         cursor = connection.cursor()

@@ -55,14 +55,19 @@ def index(request):
         plan_idx = 0
         for sp in setPlan:
             recipe = module.dbmodule.get_recipe(sp)
-            module.dbmodule.insert_plan({
+            if module.dbmodule.check_plan({
                 'seq' : request.session['member_index'],
-                'rcp' : sp,
                 'date' : start_day,
-                'emissions' : recipe['INFO_EMISSIONS'],
                 'type' : plan_idx%3,
-                'isvege' : vegelist[plan_idx],
-            })
+            }) == False:
+                module.dbmodule.insert_plan({
+                    'seq' : request.session['member_index'],
+                    'rcp' : sp,
+                    'date' : start_day,
+                    'emissions' : recipe['INFO_EMISSIONS'],
+                    'type' : plan_idx%3,
+                    'isvege' : vegelist[plan_idx],
+                })
             plan_idx += 1
             if plan_idx%3 == 0:
                 start_day += datetime.timedelta(days=1)
@@ -339,7 +344,7 @@ def waiting(request):
     today = datetime.date.today()
     # 월요일
     monday = today - datetime.timedelta(days=(today.weekday() % 7))
-    start_day = today
+    start_day = today + datetime.timedelta(days=1)
     # 일요일
     sunday = monday + datetime.timedelta(days=6)
 

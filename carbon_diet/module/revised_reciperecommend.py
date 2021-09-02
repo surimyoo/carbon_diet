@@ -10,9 +10,16 @@ Original file is located at
 import numpy as np
 import module.dbmodule
 import pandas as pd
-import random
+import random, decimal
 
 recipe_df = module.dbmodule.get_recipe_list()
+
+vege_list = []
+vege_emission_collection = {}
+for rc in recipe_df:
+    vege_list.append(rc['RCP_SEQ'])
+    vege_emission_collection[rc['RCP_SEQ']] = rc['INFO_EMISSIONS']
+limit_emission = decimal.Decimal('2700.00')
 
 #비건 음식 인덱스 채우는 함수
 
@@ -37,37 +44,43 @@ def find_true_vege(vege,day,week):
       week_idx=random.randint(0,6)
     week_list.append(week_idx)
 
-    day_list=[]
-    for j in range(day):
-      day_idx=random.randint(0,2)
-      while day_idx in day_list:
+    day_emission = decimal.Decimal('0')
+    for t in range(5):
+      if day_emission <= limit_emission and day_emission > 0:
+        break
+      elif limit_emission < day_emission:
+        day_emission = decimal.Decimal('0')
+        for j in range(day):
+            count+=1
+
+      day_list=[]
+      for j in range(day):
         day_idx=random.randint(0,2)
-      day_list.append(day_idx)
-
-      rec=np.random.choice(true_vege_list)
-      while rec in avo_dupli: #레시피 선택 중복 x
+        while day_idx in day_list:
+          day_idx=random.randint(0,2)
+        day_list.append(day_idx)
+      
         rec=np.random.choice(true_vege_list)
-      avo_dupli.append(rec)
-
-      recipe_li[week_idx][day_idx][0]=rec
-      recipe_li[week_idx][day_idx][1]=1
-      count-=1
+        while rec in avo_dupli: #레시피 선택 중복 x
+          rec=np.random.choice(true_vege_list)
+        avo_dupli.append(rec)
+      
+        recipe_li[week_idx][day_idx][0]=rec
+        recipe_li[week_idx][day_idx][1]=1
+        count-=1
+        day_emission += vege_emission_collection[rec]
   return recipe_li
 
 #나머지 식단 채우는 함수
 def find_false_vege(recipe_li,vege):
-  false_vege_list = []
-  for rc in recipe_df:
-    false_vege_list.append(rc['RCP_SEQ'])
-
   avo_dupli=[]
 
   for i in range(7):
     for j in range(3):
       if recipe_li[i][j][1]==0:
-        rec=np.random.choice(false_vege_list) #레시피 선택 중복 x
+        rec=np.random.choice(vege_list) #레시피 선택 중복 x
         while rec in avo_dupli:
-          rec=np.random.choice(false_vege_list)
+          rec=np.random.choice(vege_list)
         avo_dupli.append(rec)
         recipe_li[i][j][0]=rec
   return recipe_li
@@ -91,46 +104,46 @@ def recommend_recipe_index(vege,day,week): #식단 인덱스 추천 함수
 
   return reco_recipe_idx, reco_recipe_isvege
 
-def show_recipe_details(final_user_recipe):
-  df = pd.DataFrame()
-  df_list = []
-  isvege_list = []
-  for day in final_user_recipe:
-    for meal in day:
-      idx = meal[0]
-      is_vege = meal[1]
-      df = df.append(recipe_df[recipe_df['RCP_SEQ']==idx])
-      # df_list.append(recipe_df[recipe_df['RCP_SEQ']==idx])
-      isvege_list.append(is_vege)
-  # df = pd.DataFrame(df_list)  
-  df['is_Vege'] = isvege_list
-  df = df[['RCP_SEQ', 'RCP_NM','is_Vege', 'VEGE_CLASS_SEQ', 'RCP_WAY2', 'RCP_PAT2',
-       'INFO_EMISSIONS', 'INFO_ENG', 'INFO_CAR', 'INFO_PRO', 'INFO_FAT',
-       'INFO_NA', 'HASH_TAG', 'ATT_FILE_NO_MAIN', 'ATT_FILE_NO_MK',
-       'RCP_PARTS_DTLS', 'MANUAL01', 'MANUAL02', 'MANUAL03', 'MANUAL04',
-       'MANUAL05', 'MANUAL06', 'MANUAL07', 'MANUAL08', 'MANUAL09', 'MANUAL10'
-       ]]
-  df = df.reset_index().drop(['index'],axis=1)
-  return df
-
+#def show_recipe_details(final_user_recipe):
+#  df = pd.DataFrame()
+#  df_list = []
+#  isvege_list = []
+#  for day in final_user_recipe:
+#    for meal in day:
+#      idx = meal[0]
+#      is_vege = meal[1]
+#      df = df.append(recipe_df[recipe_df['RCP_SEQ']==idx])
+#      # df_list.append(recipe_df[recipe_df['RCP_SEQ']==idx])
+#      isvege_list.append(is_vege)
+#  # df = pd.DataFrame(df_list)  
+#  df['is_Vege'] = isvege_list
+#  df = df[['RCP_SEQ', 'RCP_NM','is_Vege', 'VEGE_CLASS_SEQ', 'RCP_WAY2', 'RCP_PAT2',
+#       'INFO_EMISSIONS', 'INFO_ENG', 'INFO_CAR', 'INFO_PRO', 'INFO_FAT',
+#       'INFO_NA', 'HASH_TAG', 'ATT_FILE_NO_MAIN', 'ATT_FILE_NO_MK',
+#       'RCP_PARTS_DTLS', 'MANUAL01', 'MANUAL02', 'MANUAL03', 'MANUAL04',
+#       'MANUAL05', 'MANUAL06', 'MANUAL07', 'MANUAL08', 'MANUAL09', 'MANUAL10'
+#       ]]
+#  df = df.reset_index().drop(['index'],axis=1)
+#  return df
+#
 # 최종 - 유저 선택에 맞게 식단 제공하는 함수
-def recipeRecommend_C(vege, day, week):
-
-  emission = 1000 # 나올 수 없는 탄소배출량 값으로 초기값 설정
-
+#def recipeRecommend_C(vege, day, week):
+#
+#  emission = 1000 # 나올 수 없는 탄소배출량 값으로 초기값 설정
+#
 # 식단의 주간 탄소배출량이 27kg 이하가 될 때까지 식단 추천 반복
-  while emission > 27:
-    recipe_index = recommend_recipe_index(vege, day, week)
-    recipe_all = show_recipe_details(recipe_index)
-    emission = recipe_all['INFO_EMISSIONS'].sum(axis=0)/1000
-
-  reco_recipe_idx = []
-  reco_recipe_isvege = []
-
-  for list2 in recipe_index:
-    for list1 in list2:
-      reco_recipe_idx.append(list1[0])
-      reco_recipe_isvege.append(list1[1])
-
-  return reco_recipe_idx, reco_recipe_isvege
+#  while emission > 27:
+#    recipe_index = recommend_recipe_index(vege, day, week)
+#    recipe_all = show_recipe_details(recipe_index)
+#    emission = recipe_all['INFO_EMISSIONS'].sum(axis=0)/1000
+#
+#  reco_recipe_idx = []
+#  reco_recipe_isvege = []
+#
+#  for list2 in recipe_index:
+#    for list1 in list2:
+#      reco_recipe_idx.append(list1[0])
+#      reco_recipe_isvege.append(list1[1])
+#
+#  return reco_recipe_idx, reco_recipe_isvege
 
